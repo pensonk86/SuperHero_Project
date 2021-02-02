@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace SuperHero_Project.Controllers
 {
-    public class SuperHeroes : Controller
+    public class SuperHeroesController : Controller
     {
         private ApplicationDbContext _context; 
-        public SuperHeroes(ApplicationDbContext context)
+        public SuperHeroesController(ApplicationDbContext context)
         {
             _context = context;
 
@@ -59,7 +59,7 @@ namespace SuperHero_Project.Controllers
         // GET: SuperHeros/Edit/5
         public ActionResult Edit(int id)
         {
-            SuperHero superhero = _context.Superheros.FirstDefault(s => s.id == id);
+            SuperHero superhero = _context.SuperHeroes.FirstOrDefault(s => s.Id == id);
             return View();
         }
 
@@ -70,11 +70,11 @@ namespace SuperHero_Project.Controllers
         {
             try
             {
-                SuperHero superheroToAdd = _context.SuperHeroes.First(s => s.id == id);
+                SuperHero superheroToAdd = _context.SuperHeroes.First(s => s.Id == id);
                 superheroToAdd.Name = collection["Name"];
                 superheroToAdd.AlterEgo = collection["AlterEgo"];
-                superheroToAdd.PrimarySuperheroAbility = collection["PrimarySuperheroAbility"];
-                superheroToAdd.SecondarySuperHeroAbility = collection["SecondarySuperheroAbility"];
+                superheroToAdd.PrimaryAbility = collection["PrimarySuperheroAbility"];
+                superheroToAdd.SecondaryAbility = collection["SecondarySuperheroAbility"];
                 superheroToAdd.Catchphrase = collection["Catchphrase"];
                 _context.SaveChanges();
 
@@ -89,7 +89,7 @@ namespace SuperHero_Project.Controllers
         // GET: SuperHeros/Delete/5
         public ActionResult Delete(int id)
         {
-            SuperHero superhero = _context.SuperHeroes.First(s => s.id == id);
+            SuperHero superhero = _context.SuperHeroes.First(s => s.Id == id);
             return View(superhero);
         }
 
@@ -100,7 +100,7 @@ namespace SuperHero_Project.Controllers
         {
             try
             {
-                SuperHero superhero = _context.SuperHeroes.First(s => s.id == id);
+                SuperHero superhero = _context.SuperHeroes.First(s => s.Id == id);
                 _context.SuperHeroes.Remove(superhero);
                 _context.SaveChanges();
                
